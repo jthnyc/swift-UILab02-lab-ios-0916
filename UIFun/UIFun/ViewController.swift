@@ -9,19 +9,41 @@
 import UIKit
 
 class ViewController: UIViewController {
-    // TODO: Set up IB outlets
+    @IBOutlet weak var bucket: UIView!
+    @IBOutlet weak var control1: UISegmentedControl!
+    @IBOutlet weak var control2: UISegmentedControl!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO: Set the initial paint color to "red"
+        bucket.paintColorName = "red"
+        
     }
 
     func mixColors(withFirst first: String, second: String) -> String {
-        // TODO: Mix colors and return a string indicating the name of the mixed color
-        // (e.g., "red", "purple", "blue")
-    }
-
-    @IBAction func colorSelected(sender: UISegmentedControl) {
-        // TODO: Mix each selected color and set the paint color to the mixed color
+        let mix = (first, second)
+        switch mix {
+        case ("red", "red"):
+            return "red"
+        case ("red", "yellow"), ("yellow", "red"):
+            return "orange"
+        case ("red", "blue"), ("blue", "red"):
+            return "purple"
+        case ("yellow", "yellow"):
+            return "yellow"
+        case ("yellow", "blue"), ("blue", "yellow"):
+            return "green"
+        case ("blue", "blue"):
+            return "blue"
+        default:
+            return "no color"
     }
 }
+    
+        @IBAction func colorSelected(sender: UISegmentedControl) {
+            bucket.paintColorName = mixColors(withFirst: control1.color.name, second: control2.color.name)
+        }
+        
+        
+}
+
